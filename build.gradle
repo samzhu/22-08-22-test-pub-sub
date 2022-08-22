@@ -1,8 +1,8 @@
 plugins {
-	id 'org.springframework.boot' version '2.6.11'
-	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
-	id 'java'
-	id 'org.springframework.experimental.aot' version '0.11.5'
+  id 'org.springframework.boot' version '2.7.3'
+  id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+  id 'java'
+  id 'org.springframework.experimental.aot' version '0.12.1'
 }
 
 group = 'com.example'
@@ -21,8 +21,9 @@ ext {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'com.google.cloud:spring-cloud-gcp-starter-pubsub'
-	implementation 'org.springframework.integration:spring-integration-core'
+	// implementation 'com.google.cloud:spring-cloud-gcp-starter-pubsub'
+	// implementation 'org.springframework.integration:spring-integration-core'
+	implementation 'com.google.cloud:google-cloud-pubsub:1.120.12'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -30,7 +31,7 @@ dependencies {
 
 dependencyManagement {
 	imports {
-		mavenBom "com.google.cloud:spring-cloud-gcp-dependencies:${springCloudGcpVersion}"
+		// mavenBom "com.google.cloud:spring-cloud-gcp-dependencies:${springCloudGcpVersion}"
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
 }
@@ -40,6 +41,6 @@ tasks.named('test') {
 }
 
 tasks.named('bootBuildImage') {
-	builder = 'paketobuildpacks/builder:tiny'
+	builder = 'paketobuildpacks/builder:0.1.241-tiny'
 	environment = ['BP_NATIVE_IMAGE': 'true']
 }
